@@ -5,6 +5,19 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const router = require('./router');
+var mongoose = require('mongoose');
+
+//DB setup ( creates a database called auth)
+mongoose.connect('mongodb://localhost/auth', {
+    useMongoClient:true
+});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('we are connected..!!');
+
+});
 
 //App setup
 //morgan and body-parser are middleware in express
