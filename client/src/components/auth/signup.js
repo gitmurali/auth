@@ -8,7 +8,7 @@ class Signup extends Component {
 
     handleFormSubmit({email, password, passwordConfirm}) {
         console.log(email, password, passwordConfirm);
-        // this.props.dispatch(actions.signinUser({email, password}));
+        this.props.dispatch(actions.signUpUser({email, password}));
     }
 
     renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
@@ -19,6 +19,17 @@ class Signup extends Component {
             </div>
         </div>
     )
+
+    renderAlert() {
+        console.log(this.props);
+        if(this.props.errorMessage) {
+            return (
+                <div className="alert alert-danger">
+                    <strong>Oops!</strong>{this.props.errorMessage}
+                </div>
+            )
+        }
+    }
 
     render() {
         const { handleSubmit, fields: { email, password, passwordConfirm} } = this.props;
@@ -62,6 +73,7 @@ class Signup extends Component {
                             />
                         </div>
                     </div>
+                    {this.renderAlert()}
                     <button type="submit" className="btn btn-primary">Sign up</button>
                 </form>
             </div>
@@ -72,8 +84,14 @@ class Signup extends Component {
 Signup.propTypes = {};
 Signup.defaultProps = {};
 
+
+function mapStateToProps(state) {
+    return {
+        errorMessage: state.auth.error,
+    }
+}
 Signup = connect(
-    null,
+    mapStateToProps,
     actions
 )(Signup)
 
