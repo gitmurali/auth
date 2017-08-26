@@ -25,6 +25,7 @@ class Signin extends Component {
         const { handleSubmit, fields: { email, password} } = this.props;
 
         return (
+            <div className="col-md-12">
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <div>
                     <label>Email</label>
@@ -53,6 +54,7 @@ class Signin extends Component {
                 {this.renderAlert()}
                 <button type="submit" className="btn btn-primary">Sign in</button>
             </form>
+            </div>
         );
     }
 }

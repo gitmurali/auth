@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { AUTH_ERROR, AUTH_USER } from "./types";
+import { AUTH_ERROR, AUTH_USER, UNAUTH_USER } from "./types";
 
 const ROOT_URL = 'http://localhost:3001';
 
@@ -16,6 +16,13 @@ export function signinUser({ email, password }) {
                 dispatch(authError('Bad Login Info'));
             });
     }
+}
+
+export function signoutUser() {
+    localStorage.removeItem('token');
+    return {
+        type: UNAUTH_USER
+    };
 }
 
 export function authError(error) {
